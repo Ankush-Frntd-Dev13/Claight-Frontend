@@ -251,7 +251,7 @@ const Login = () => {
             transition: 'opacity 0.7s ease-out 1s',
           }}
         >
-          © 2025 Precision Intel. All rights reserved.
+          © 2026 Procurement Resource Intelligence. All rights reserved.
         </p>
       </div>
 

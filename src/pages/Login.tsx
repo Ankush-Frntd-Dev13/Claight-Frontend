@@ -3,53 +3,7 @@ import { useNavigate, useLocation, Navigate } from 'react-router-dom'
 import { Eye, EyeOff, ArrowRight } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { ApiError } from '../api/client'
-
-// Animated gradient orbs for the background
-const BackgroundOrbs = () => (
-  <div className="fixed inset-0 overflow-hidden pointer-events-none">
-    {/* Large purple orb */}
-    <div
-      className="absolute w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
-      style={{
-        background: 'radial-gradient(circle, #7c3aed 0%, transparent 70%)',
-        top: '-10%',
-        right: '-5%',
-        animation: 'orbFloat1 20s ease-in-out infinite',
-      }}
-    />
-    {/* Teal orb */}
-    <div
-      className="absolute w-[500px] h-[500px] rounded-full opacity-15 blur-3xl"
-      style={{
-        background: 'radial-gradient(circle, #14b8a6 0%, transparent 70%)',
-        bottom: '-10%',
-        left: '-5%',
-        animation: 'orbFloat2 25s ease-in-out infinite',
-      }}
-    />
-    {/* Small accent orb */}
-    <div
-      className="absolute w-[300px] h-[300px] rounded-full opacity-10 blur-3xl"
-      style={{
-        background: 'radial-gradient(circle, #f59e0b 0%, transparent 70%)',
-        top: '50%',
-        left: '30%',
-        animation: 'orbFloat3 18s ease-in-out infinite',
-      }}
-    />
-    {/* Subtle grid overlay */}
-    <div
-      className="absolute inset-0 opacity-[0.03]"
-      style={{
-        backgroundImage: `
-          linear-gradient(rgba(124, 58, 237, 0.5) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(124, 58, 237, 0.5) 1px, transparent 1px)
-        `,
-        backgroundSize: '60px 60px',
-      }}
-    />
-  </div>
-)
+import ParticleBackground from '../components/intelligence/ParticleBackground'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -113,7 +67,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0f0b1a] font-body relative">
-      <BackgroundOrbs />
+      <ParticleBackground />
 
       {/* Login card */}
       <div
@@ -135,7 +89,7 @@ const Login = () => {
               transition: 'opacity 0.7s ease-out 0.15s, transform 0.7s ease-out 0.15s',
             }}
           >
-            <div className="bg-white/15 backdrop-blur-sm rounded-2xl px-4 py-2">
+            <div>
               <img
                 src="https://adminportal-new.procurementresource.com/pr-logo.webp"
                 alt="Precision Intel"
@@ -301,23 +255,6 @@ const Login = () => {
         </p>
       </div>
 
-      {/* Keyframe animations */}
-      <style>{`
-        @keyframes orbFloat1 {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          33% { transform: translate(-40px, 30px) scale(1.05); }
-          66% { transform: translate(20px, -20px) scale(0.95); }
-        }
-        @keyframes orbFloat2 {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          33% { transform: translate(30px, -40px) scale(1.08); }
-          66% { transform: translate(-25px, 15px) scale(0.92); }
-        }
-        @keyframes orbFloat3 {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          50% { transform: translate(50px, -30px) scale(1.1); }
-        }
-      `}</style>
     </div>
   )
 }

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import {
   LayoutGrid,
@@ -5,14 +6,15 @@ import {
   BarChart3,
   Compass,
   Database,
-  TrendingDown,
+  TrendingUp,
   Leaf,
-  MessageSquare,
-  Settings,
-  LifeBuoy,
+  LogOut,
   ChevronRight,
   ChevronLeft,
+  Menu,
+  X,
 } from 'lucide-react'
+import { useAuth } from '../context/AuthContext'
 
 interface SidebarProps {
   collapsed: boolean
@@ -24,23 +26,19 @@ interface NavItem {
   label: string
   path: string
   icon: React.ReactNode
+  iconColor: string
   hasChevron?: boolean
-  cardId?: string // ID of the card element to scroll to
+  cardId?: string
 }
 
 const mainNavItems: NavItem[] = [
-  { id: 'intelligence', label: 'Dashboard', path: '/intelligence', icon: <LayoutGrid size={20} />, hasChevron: true },
-  { id: 'procure360', label: 'Procure360', path: '/intelligence', icon: <Globe size={20} />, cardId: 'card-procure360' },
-  { id: 'cost-models', label: 'Cost Models', path: '/intelligence', icon: <BarChart3 size={20} />, cardId: 'card-cost-models' },
-  { id: 'sourcing-compass', label: 'Sourcing Compass', path: '/intelligence', icon: <Compass size={20} />, cardId: 'card-sourcing-compass' },
-  { id: 'price-database', label: 'Price Database', path: '/intelligence', icon: <Database size={20} />, cardId: 'card-price-database' },
-  { id: 'inflation-forecasting', label: 'Inflation Forecasting', path: '/intelligence', icon: <TrendingDown size={20} />, cardId: 'card-inflation-forecasting' },
-  { id: 'sustainability-tracker', label: 'Sustainability Tracker', path: '/intelligence', icon: <Leaf size={20} />, cardId: 'card-sustainability-tracker' },
-]
-
-const bottomNavItems: NavItem[] = [
-  { id: 'settings', label: 'Settings', path: '/settings', icon: <Settings size={20} /> },
-  { id: 'support', label: 'Support', path: '/support', icon: <LifeBuoy size={20} /> },
+  { id: 'intelligence', label: 'Dashboard', path: '/intelligence', icon: <LayoutGrid size={18} />, iconColor: 'text-primary-500', hasChevron: true },
+  { id: 'procure360', label: 'Procure 360', path: '/intelligence', icon: <Globe size={18} />, iconColor: 'text-blue-500', cardId: 'card-procure360' },
+  { id: 'cost-models', label: 'Digital Cost Model', path: '/intelligence', icon: <BarChart3 size={18} />, iconColor: 'text-teal-500', cardId: 'card-cost-models' },
+  { id: 'sourcing-compass', label: 'Sourcing Compass', path: '/intelligence', icon: <Compass size={18} />, iconColor: 'text-amber-500', cardId: 'card-sourcing-compass' },
+  { id: 'price-database', label: 'Price Database', path: '/intelligence', icon: <Database size={18} />, iconColor: 'text-indigo-500', cardId: 'card-price-database' },
+  { id: 'inflation-forecasting', label: 'FNF Intelligence', path: '/intelligence', icon: <TrendingUp size={18} />, iconColor: 'text-orange-500', cardId: 'card-inflation-forecasting' },
+  { id: 'sustainability-tracker', label: 'Sustainability Tracker', path: '/intelligence', icon: <Leaf size={18} />, iconColor: 'text-emerald-500', cardId: 'card-sustainability-tracker' },
 ]
 
 // Card IDs that are on the Intelligence page
@@ -49,18 +47,23 @@ const cardIds = new Set(mainNavItems.filter((i) => i.cardId).map((i) => i.id))
 const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
   const location = useLocation()
   const navigate = useNavigate()
+  const { logout } = useAuth()
+  const [mobileOpen, setMobileOpen] = useState(false)
+
+  const handleLogout = async () => {
+    await logout()
+    navigate('/login', { replace: true })
+  }
 
   const isActive = (item: NavItem) => {
-    if (item.cardId) return false // card items don't stay "active"
+    if (item.cardId) return false
     return location.pathname === item.path
   }
 
   const handleClick = (item: NavItem) => {
     if (item.cardId) {
-      // If not on intelligence page, navigate there first
       if (location.pathname !== '/intelligence') {
         navigate('/intelligence')
-        // Wait for page to render then scroll
         setTimeout(() => scrollAndHighlight(item.cardId!), 100)
       } else {
         scrollAndHighlight(item.cardId)
@@ -68,6 +71,7 @@ const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
     } else {
       navigate(item.path)
     }
+    setMobileOpen(false)
   }
 
   const scrollAndHighlight = (cardId: string) => {
@@ -75,8 +79,6 @@ const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
     if (!el) return
 
     el.scrollIntoView({ behavior: 'smooth', block: 'center' })
-
-    // Add highlight class
     el.classList.add('card-highlight')
     setTimeout(() => {
       el.classList.remove('card-highlight')
@@ -95,28 +97,72 @@ const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
             : 'text-text-secondary border-l-transparent hover:bg-[#f8f7fa] hover:text-text-primary'
       }`}
     >
-      <span className={`min-w-5 ${isActive(item) ? 'text-primary-500' : 'text-text-muted'}`}>
+      <span className={`min-w-5 ${isActive(item) ? 'text-primary-500' : item.iconColor}`}>
         {item.icon}
       </span>
-      <span className={`flex-1 text-left transition-opacity duration-250 ${collapsed ? 'opacity-0 w-0 overflow-hidden' : ''}`}>
+      <span className={`flex-1 text-left transition-opacity duration-250 ${collapsed && !mobileOpen ? 'opacity-0 w-0 overflow-hidden' : ''}`}>
         {item.label}
       </span>
       {item.hasChevron && (
         <ChevronRight
-          size={16}
-          className={`text-text-muted transition-opacity duration-250 ${collapsed ? 'opacity-0 w-0' : ''}`}
+          size={14}
+          className={`text-text-muted transition-opacity duration-250 ${collapsed && !mobileOpen ? 'opacity-0 w-0' : ''}`}
         />
       )}
     </button>
   )
 
+  const sidebarContent = (
+    <>
+      {/* Logo */}
+      <div className={`flex items-center justify-center pt-6 pb-5 ${collapsed && !mobileOpen ? 'px-3' : 'px-5'}`}>
+        <img
+          src="https://adminportal-new.procurementresource.com/pr-logo.webp"
+          alt="Precision Intel"
+          className={`object-contain transition-all duration-250 ${collapsed && !mobileOpen ? 'w-12 h-12' : 'w-52 h-14'}`}
+        />
+      </div>
+
+      {/* Main navigation */}
+      <nav className="flex-1 px-3 py-2 flex flex-col gap-0.5 overflow-y-auto">
+        {mainNavItems.map((item) => (
+          <NavButton key={item.id} item={item} />
+        ))}
+      </nav>
+
+      {/* Bottom - Logout */}
+      <div className="px-3 py-3 flex flex-col gap-0.5 border-t border-sidebar-border">
+        <button
+          onClick={handleLogout}
+          title={collapsed && !mobileOpen ? 'Logout' : undefined}
+          className="flex items-center gap-3 px-3 py-2.5 rounded-md cursor-pointer transition-all duration-150 whitespace-nowrap font-body text-sm font-medium border-l-[3px] border-l-transparent text-red-500 hover:bg-red-50 hover:text-red-600"
+        >
+          <span className="min-w-5 text-red-400">
+            <LogOut size={18} />
+          </span>
+          <span className={`flex-1 text-left transition-opacity duration-250 ${collapsed && !mobileOpen ? 'opacity-0 w-0 overflow-hidden' : ''}`}>
+            Logout
+          </span>
+        </button>
+      </div>
+    </>
+  )
+
   return (
     <>
-      {/* Collapse toggle */}
+      {/* Mobile hamburger button */}
+      <button
+        onClick={() => setMobileOpen(true)}
+        className="fixed top-4 left-4 z-50 w-10 h-10 bg-white border border-border rounded-lg flex items-center justify-center cursor-pointer shadow-sm hover:bg-primary-50 md:hidden"
+      >
+        <Menu size={20} className="text-text-secondary" />
+      </button>
+
+      {/* Desktop collapse toggle */}
       <button
         onClick={onToggle}
         aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-        className={`fixed top-7 z-51 w-6 h-6 bg-white border border-border rounded-full flex items-center justify-center cursor-pointer shadow-sm hover:bg-primary-50 hover:border-primary-500 group transition-all duration-250 ${
+        className={`fixed top-7 z-51 w-6 h-6 bg-white border border-border rounded-full hidden md:flex items-center justify-center cursor-pointer shadow-sm hover:bg-primary-50 hover:border-primary-500 group transition-all duration-250 ${
           collapsed ? 'left-17' : 'left-62'
         }`}
       >
@@ -128,49 +174,49 @@ const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
         />
       </button>
 
+      {/* Desktop sidebar */}
       <aside
         aria-label="Main navigation"
-        className={`fixed top-0 left-0 h-screen bg-white border-r border-sidebar-border flex flex-col z-50 overflow-hidden transition-all duration-250 ${
+        className={`fixed top-0 left-0 h-screen bg-white border-r border-sidebar-border hidden md:flex flex-col z-50 overflow-hidden transition-all duration-250 ${
           collapsed ? 'w-20' : 'w-65'
         }`}
       >
-        {/* Logo */}
-        <div className={`flex items-center justify-center pt-6 pb-5 ${collapsed ? 'px-3' : 'px-5'}`}>
-          <img
-            src="https://adminportal-new.procurementresource.com/pr-logo.webp"
-            alt="Precision Intel"
-            className={`object-contain transition-all duration-250 ${collapsed ? 'w-12 h-12' : 'w-52 h-14'}`}
-          />
-        </div>
-
-        {/* Main navigation */}
-        <nav className="flex-1 px-3 py-2 flex flex-col gap-0.5 overflow-y-auto">
-          {mainNavItems.map((item) => (
-            <NavButton key={item.id} item={item} />
-          ))}
-        </nav>
-
-        {/* Ask PR Button */}
-        <button
-          title={collapsed ? 'Ask PR' : undefined}
-          className={`flex items-center gap-2.5 mx-3 mb-2 bg-linear-to-br from-accent-start to-accent-end text-white rounded-xl font-body text-sm font-medium cursor-pointer transition-all duration-150 hover:from-primary-500 hover:to-primary-700 hover:-translate-y-0.5 hover:shadow-lg ${
-            collapsed ? 'px-2.5 py-2.5 justify-center' : 'px-4 py-2.5'
-          }`}
-        >
-          <MessageSquare size={18} className="min-w-4.5" />
-          <span className={`${collapsed ? 'opacity-0 w-0 overflow-hidden' : ''}`}>Ask PR</span>
-        </button>
-
-        {/* Bottom navigation */}
-        <div className="px-3 py-3 flex flex-col gap-0.5 border-t border-sidebar-border">
-          {bottomNavItems.map((item) => (
-            <NavButton key={item.id} item={item} />
-          ))}
-        </div>
+        {sidebarContent}
       </aside>
 
-      {/* Mobile overlay */}
-      <div className="hidden fixed inset-0 bg-black/40 z-40 md:hidden" />
+      {/* Mobile sidebar overlay */}
+      {mobileOpen && (
+        <div className="fixed inset-0 z-50 md:hidden">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/50 transition-opacity"
+            onClick={() => setMobileOpen(false)}
+          />
+
+          {/* Drawer */}
+          <aside className="absolute top-0 left-0 h-full w-72 bg-white flex flex-col shadow-2xl animate-slide-in">
+            {/* Close button */}
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 cursor-pointer transition-colors"
+            >
+              <X size={18} className="text-text-secondary" />
+            </button>
+
+            {sidebarContent}
+          </aside>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes slideIn {
+          from { transform: translateX(-100%); }
+          to { transform: translateX(0); }
+        }
+        .animate-slide-in {
+          animation: slideIn 0.25s ease-out;
+        }
+      `}</style>
     </>
   )
 }

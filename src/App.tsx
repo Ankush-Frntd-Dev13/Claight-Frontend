@@ -32,13 +32,13 @@ const AppLayout = () => {
         <Sidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} />
 
         <div
-          className={`flex flex-1 flex-col transition-all duration-250 ${
-            sidebarCollapsed ? 'ml-20' : 'ml-65'
+          className={`flex flex-1 flex-col transition-all duration-250 ml-0 ${
+            sidebarCollapsed ? 'md:ml-20' : 'md:ml-65'
           }`}
         >
           <Header />
 
-          <main role="main" className="flex-1 p-6">
+          <main role="main" className="flex-1 p-4 md:p-6">
             <Routes>
               <Route path="/" element={<Navigate to="/intelligence" replace />} />
               <Route path="/intelligence" element={<Intelligence />} />

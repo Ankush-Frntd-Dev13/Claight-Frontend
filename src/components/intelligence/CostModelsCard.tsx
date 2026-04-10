@@ -10,8 +10,9 @@ interface CostItem {
 
 const costItems: CostItem[] = [
   { label: 'Raw Materials', percentage: 42, color: 'bg-[#14b8a6]', bgColor: 'bg-[#14b8a6]/15' },
-  { label: 'Direct Labor', percentage: 28, color: 'bg-[#f59e0b]', bgColor: 'bg-[#f59e0b]/15' },
-  { label: 'Overhead & Logistics', percentage: 30, color: 'bg-[#1e1b4b]', bgColor: 'bg-[#1e1b4b]/15' },
+  { label: 'Direct Labor', percentage: 18, color: 'bg-[#f59e0b]', bgColor: 'bg-[#f59e0b]/15' },
+  { label: 'Overhead & Logistics', percentage: 15, color: 'bg-[#1e1b4b]', bgColor: 'bg-[#1e1b4b]/15' },
+  { label: 'Utility Cost', percentage: 12, color: 'bg-[#6366f1]', bgColor: 'bg-[#6366f1]/15' },
 ]
 
 const CostModelsCard = () => {
@@ -36,12 +37,12 @@ const CostModelsCard = () => {
   }, [])
 
   return (
-    <article className="bg-card rounded-2xl p-5 shadow-sm border border-border flex flex-col h-full">
+    <article onClick={handleOpen} className="bg-card rounded-2xl p-5 shadow-sm border border-border flex flex-col h-full cursor-pointer hover:shadow-md hover:border-primary-200 transition-all duration-200">
       {/* Header */}
       <div className="mb-4">
-        <h2 className="font-body text-lg font-semibold text-text-primary">Cost Models</h2>
-        <p className="text-xs text-text-muted mt-0.5 leading-relaxed">
-          Breakdown of procurement cost across key categories.
+        <h2 className="font-body text-lg font-semibold text-text-primary">Digital Cost Model</h2>
+        <p className="text-xs text-text-muted mt-0.5 leading-relaxed w-full">
+          An Always-on tool delivering precise cost breakdowns of raw materials, labor, utilities, and overheads to drive data-led supplier negotiations and cost benchmarking.
         </p>
       </div>
 
@@ -80,7 +81,7 @@ const CostModelsCard = () => {
             </>
           ) : (
             <>
-              Open Cost Models <ExternalLink size={12} />
+              Open Digital Cost Model <ExternalLink size={12} />
             </>
           )}
         </button>

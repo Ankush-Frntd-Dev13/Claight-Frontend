@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom'
-import { TrendingUp, TrendingDown, ExternalLink } from 'lucide-react'
+import { TrendingUp, TrendingDown } from 'lucide-react'
 import { LineChart, Line, ResponsiveContainer } from 'recharts'
 
 interface PriceItem {
@@ -69,30 +68,30 @@ const PriceDatabaseCard = () => {
       {/* Header */}
       <div className="mb-4">
         <h2 className="font-body text-lg font-semibold text-text-primary">Price Database</h2>
-        <p className="text-xs text-text-muted mt-0.5 max-w-md leading-relaxed">
-          Real-time global mapping tracking 42,000 active nodes across 12 maritime corridors.
+        <p className="text-xs text-text-muted mt-0.5 w-full leading-relaxed">
+          A centralized repository of structured price data across markets, time periods, and geographies, enabling analysis, benchmarking, and trend insights.
         </p>
       </div>
 
       {/* Price rows */}
       <div className="flex flex-col gap-4 flex-1 justify-center">
         {priceItems.map((item) => (
-          <div key={item.symbol} className="flex items-center gap-3">
+          <div key={item.symbol} className="flex items-center gap-2 sm:gap-3 min-w-0">
             {/* Symbol badge */}
             <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-bold shrink-0"
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center text-xs font-bold shrink-0"
               style={{ backgroundColor: item.bgColor, color: item.color }}
             >
               {item.symbol}
             </div>
 
             {/* Name */}
-            <div className="w-28 shrink-0">
-              <p className="text-sm font-semibold text-text-primary leading-tight">{item.name}</p>
+            <div className="min-w-0 shrink-0">
+              <p className="text-xs sm:text-sm font-semibold text-text-primary leading-tight truncate">{item.name}</p>
             </div>
 
             {/* Sparkline chart */}
-            <div className="flex-1 h-8">
+            <div className="flex-1 h-8 min-w-0 hidden sm:block">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={item.chartData}>
                   <Line
@@ -107,8 +106,8 @@ const PriceDatabaseCard = () => {
             </div>
 
             {/* Price + change */}
-            <div className="text-right w-24 shrink-0">
-              <p className="text-sm font-bold text-text-primary">{item.price}</p>
+            <div className="text-right shrink-0 ml-auto">
+              <p className="text-xs sm:text-sm font-bold text-text-primary">{item.price}</p>
               <div className="flex items-center justify-end gap-0.5">
                 {!item.stable && (
                   item.positive
@@ -132,11 +131,11 @@ const PriceDatabaseCard = () => {
         ))}
       </div>
 
-      {/* Redirect link */}
+      {/* Footer */}
       <div className="mt-4 pt-3 border-t border-border">
-        <Link to="/price-database" className="flex items-center gap-1 text-xs font-semibold text-primary-500 hover:text-primary-700 transition-colors">
-          Open Price Database <ExternalLink size={12} />
-        </Link>
+        <span className="flex items-center gap-1 text-xs font-semibold text-text-muted">
+          Open Price Database
+        </span>
       </div>
     </article>
   )

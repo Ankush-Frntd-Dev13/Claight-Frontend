@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { LogOut } from 'lucide-react'
+import { LogOut, Mail } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 
@@ -20,15 +20,27 @@ const Header = () => {
   return (
     <header
       role="banner"
-      className="sticky top-0 z-40 flex items-center justify-between h-16 px-6 bg-white border-b border-border"
+      className="sticky top-0 z-40 flex items-center justify-between h-16 px-4 md:px-6 bg-white border-b border-border"
     >
-      {/* Left - Page context */}
+      {/* Left - spacer for mobile hamburger */}
       <div className="flex items-center gap-3">
-        {/* Can show breadcrumb or page title here */}
+        <div className="w-10 md:hidden" />
       </div>
 
       {/* Right - User actions */}
       <div className="relative flex items-center gap-3">
+        <a
+          href="https://www.procurementresource.com/contact-us"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium !text-text-secondary hover:!text-primary-500 transition-colors"
+        >
+          <Mail size={16} />
+          <span className="hidden sm:inline">Contact Us</span>
+        </a>
+
+        <div className="w-px h-6 bg-border" />
+
         <div
           className="w-9 h-9 rounded-full bg-primary-500 flex items-center justify-center text-white text-sm font-semibold cursor-pointer"
           onClick={() => setShowMenu(!showMenu)}

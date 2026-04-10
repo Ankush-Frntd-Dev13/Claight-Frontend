@@ -39,6 +39,26 @@ const origins = [
       { text: "31.2%", color: "#b8860b" },
     ],
   },
+  {
+    name: "Vietnam",
+    flag: "🇻🇳",
+    values: [
+      { text: "18.5%", color: "#10b981" },
+      { text: "1.2%", color: "#b8860b" },
+      { text: "28.7 USD", color: "#10b981" },
+      { text: "24.6%", color: "#b8860b" },
+    ],
+  },
+  {
+    name: "Thailand",
+    flag: "🇹🇭",
+    values: [
+      { text: "20.5%", color: "#b8860b" },
+      { text: "0.5%", color: "#10b981" },
+      { text: "29.8 USD", color: "#10b981" },
+      { text: "23.1%", color: "#b8860b" },
+    ],
+  },
 ];
 
 const SourcingCompassCard = () => {
@@ -59,13 +79,13 @@ const SourcingCompassCard = () => {
   };
 
   return (
-    <article className="bg-card rounded-2xl p-5 shadow-sm border border-border flex flex-col h-full">
+    <article onClick={handleOpen} className="bg-card rounded-2xl p-5 shadow-sm border border-border flex flex-col h-full cursor-pointer hover:shadow-md hover:border-primary-200 transition-all duration-200">
       {/* Header */}
       <div className="mb-4">
         <h2 className="font-body text-lg font-semibold text-text-primary">
           Sourcing Compass
         </h2>
-        <p className="text-xs text-text-muted mt-0.5 max-w-xs leading-relaxed">
+        <p className="text-xs text-text-muted mt-0.5 w-full leading-relaxed">
           Instantly compare tariffs across all origin & destination country
           combinations.
         </p>

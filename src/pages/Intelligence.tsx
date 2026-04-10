@@ -21,20 +21,20 @@ const Intelligence = () => {
         </div>
       </div>
 
-      {/* Second row - Sourcing Compass + Price Database */}
+      {/* Second row - Sourcing Compass + FNF Intelligence */}
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-5 mt-5">
         <div id="card-sourcing-compass" className="lg:col-span-2 rounded-2xl transition-shadow duration-500">
           <SourcingCompassCard />
         </div>
-        <div id="card-price-database" className="lg:col-span-3 rounded-2xl transition-shadow duration-500">
-          <PriceDatabaseCard />
+        <div id="card-inflation-forecasting" className="lg:col-span-3 rounded-2xl transition-shadow duration-500">
+          <InflationForecastingCard />
         </div>
       </div>
 
-      {/* Third row - FNF Intelligence + Sustainability Tracker */}
+      {/* Third row - Price Database + Sustainability Tracker */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
-        <div id="card-inflation-forecasting" className="rounded-2xl transition-shadow duration-500">
-          <InflationForecastingCard />
+        <div id="card-price-database" className="rounded-2xl transition-shadow duration-500">
+          <PriceDatabaseCard />
         </div>
         <div id="card-sustainability-tracker" className="rounded-2xl transition-shadow duration-500">
           <SustainabilityTrackerCard />

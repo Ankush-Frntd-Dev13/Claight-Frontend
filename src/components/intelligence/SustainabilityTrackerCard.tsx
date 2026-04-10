@@ -57,13 +57,13 @@ const SustainabilityTrackerCard = () => {
   }, []);
 
   return (
-    <article className="bg-card rounded-2xl p-5 shadow-sm border border-border flex flex-col h-full">
+    <article onClick={handleOpen} className="bg-card rounded-2xl p-5 shadow-sm border border-border flex flex-col h-full cursor-pointer hover:shadow-md hover:border-primary-200 transition-all duration-200">
       {/* Header */}
       <div className="mb-4">
         <h2 className="font-body text-lg font-semibold text-text-primary">
           Sustainability Tracker
         </h2>
-        <p className="text-xs text-text-muted mt-0.5 max-w-md leading-relaxed">
+        <p className="text-xs text-text-muted mt-0.5 w-full leading-relaxed">
           Intelligent Journeys,The Modern Explorer & Experience With Intelligent
           AI
         </p>

@@ -1,0 +1,31 @@
+@use 'variables' as *;
+
+// ========================================
+// RESET - Only things Tailwind doesn't cover
+// Tailwind's preflight handles box-sizing, margin, etc.
+// ========================================
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-body;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Headings default to body font (Inter).
+// Use .font-heading class explicitly where Lora is needed.
+:where(h1, h2, h3, h4, h5, h6) {
+  font-weight: $fw-semibold;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}

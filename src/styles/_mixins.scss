@@ -1,0 +1,78 @@
+@use 'variables' as *;
+
+// ========================================
+// MIXINS - Reusable style patterns
+// ========================================
+
+// Responsive breakpoints (max target: 1535px)
+@mixin xs {
+  @media (min-width: $bp-xs) { @content; }
+}
+@mixin sm {
+  @media (min-width: $bp-sm) { @content; }
+}
+@mixin md {
+  @media (min-width: $bp-md) { @content; }
+}
+@mixin lg {
+  @media (min-width: $bp-lg) { @content; }
+}
+@mixin xl {
+  @media (min-width: $bp-xl) { @content; }
+}
+@mixin xxl {
+  @media (min-width: $bp-2xl) { @content; }
+}
+
+// Max-width breakpoints (for capping at 1535px)
+@mixin max-xxl {
+  @media (max-width: $bp-2xl) { @content; }
+}
+@mixin max-xl {
+  @media (max-width: $bp-xl) { @content; }
+}
+@mixin max-lg {
+  @media (max-width: $bp-lg) { @content; }
+}
+@mixin max-md {
+  @media (max-width: $bp-md) { @content; }
+}
+
+// Flexbox helpers
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Truncate text
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Scrollbar styling
+@mixin custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: $radius-full;
+  }
+}

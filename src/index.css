@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme {
+  /* Primary Colors */
+  --color-primary-50: #eef2ff;
+  --color-primary-100: #e0e7ff;
+  --color-primary-200: #c7d2fe;
+  --color-primary-300: #a5b4fc;
+  --color-primary-400: #818cf8;
+  --color-primary-500: #6366f1;
+  --color-primary-600: #4f46e5;
+  --color-primary-700: #4338ca;
+  --color-primary-800: #3730a3;
+  --color-primary-900: #312e81;
+
+  /* Accent / Success */
+  --color-success-50: #ecfdf5;
+  --color-success-500: #10b981;
+  --color-success-600: #059669;
+
+  /* Warning */
+  --color-warning-50: #fffbeb;
+  --color-warning-500: #f59e0b;
+  --color-warning-600: #d97706;
+
+  /* Danger */
+  --color-danger-50: #fef2f2;
+  --color-danger-500: #ef4444;
+  --color-danger-600: #dc2626;
+
+  /* Info */
+  --color-info-50: #eff6ff;
+  --color-info-500: #3b82f6;
+  --color-info-600: #2563eb;
+
+  /* Sidebar */
+  --color-sidebar: #1e1b4b;
+  --color-sidebar-hover: #312e81;
+  --color-sidebar-active: #4338ca;
+
+  /* Surface / Background */
+  --color-surface: #f8fafc;
+  --color-card: #ffffff;
+  --color-border: #e2e8f0;
+
+  /* Text */
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94a3b8;
+
+  /* Font */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

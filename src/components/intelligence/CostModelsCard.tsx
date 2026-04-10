@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
-import { ExternalLink } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { ExternalLink, Loader2 } from 'lucide-react'
 
 interface CostItem {
   label: string
@@ -17,6 +16,19 @@ const costItems: CostItem[] = [
 
 const CostModelsCard = () => {
   const [animated, setAnimated] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleOpen = () => {
+    const newTab = window.open("about:blank", "_blank")
+    setIsLoading(true)
+    setTimeout(() => {
+      if (newTab) {
+        newTab.location.href =
+          "https://cost-model.procurementresource.com?utam_cli=$2a$15$BkVVmRsU4w2da3yVLBERG.HuBS.gsQy5DWaL5YFaH1mh9Phtl4GaC"
+      }
+      setIsLoading(false)
+    }, 2000)
+  }
 
   useEffect(() => {
     const t = requestAnimationFrame(() => setAnimated(true))
@@ -56,9 +68,22 @@ const CostModelsCard = () => {
 
       {/* Redirect link */}
       <div className="mt-4 pt-3 border-t border-border">
-        <Link to="/cost-models" className="flex items-center gap-1 text-xs font-semibold text-primary-500 hover:text-primary-700 transition-colors">
-          Open Cost Models <ExternalLink size={12} />
-        </Link>
+        <button
+          onClick={handleOpen}
+          disabled={isLoading}
+          className="flex items-center gap-1 text-xs font-semibold text-primary-500 hover:text-primary-700 transition-colors disabled:opacity-60 cursor-pointer"
+        >
+          {isLoading ? (
+            <>
+              <Loader2 size={12} className="animate-spin" />
+              Opening...
+            </>
+          ) : (
+            <>
+              Open Cost Models <ExternalLink size={12} />
+            </>
+          )}
+        </button>
       </div>
     </article>
   )

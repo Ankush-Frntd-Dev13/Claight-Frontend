@@ -1,13 +1,8 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Eye, EyeOff, LayoutGrid, ArrowRight, RefreshCw } from 'lucide-react'
-
-// Generate a simple math captcha
-const generateCaptcha = () => {
-  const a = Math.floor(Math.random() * 20) + 1
-  const b = Math.floor(Math.random() * 10) + 1
-  return { question: `${a} + ${b}`, answer: (a + b).toString() }
-}
+import { useState, useEffect, useRef } from 'react'
+import { useNavigate, useLocation, Navigate } from 'react-router-dom'
+import { Eye, EyeOff, ArrowRight } from 'lucide-react'
+import { useAuth } from '../context/AuthContext'
+import { ApiError } from '../api/client'
 
 // Animated gradient orbs for the background
 const BackgroundOrbs = () => (
@@ -58,41 +53,62 @@ const BackgroundOrbs = () => (
 
 const Login = () => {
   const navigate = useNavigate()
+  const location = useLocation()
+  const { login, isAuthenticated } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
-  const [captcha, setCaptcha] = useState(generateCaptcha)
-  const [captchaInput, setCaptchaInput] = useState('')
-  const [captchaError, setCaptchaError] = useState(false)
+  // const [captcha, setCaptcha] = useState(generateCaptcha)
+  // const [captchaInput, setCaptchaInput] = useState('')
+  // const [captchaError, setCaptchaError] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [loginError, setLoginError] = useState('')
   const emailRef = useRef<HTMLInputElement>(null)
 
+  // Redirect to the page they came from, or /intelligence
+  const from = (location.state as { from?: { pathname: string } })?.from?.pathname || '/intelligence'
+
   useEffect(() => {
-    requestAnimationFrame(() => setMounted(true))
-    emailRef.current?.focus()
-  }, [])
-
-  const refreshCaptcha = useCallback(() => {
-    setCaptcha(generateCaptcha())
-    setCaptchaInput('')
-    setCaptchaError(false)
-  }, [])
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setCaptchaError(false)
-
-    if (captchaInput !== captcha.answer) {
-      setCaptchaError(true)
-      return
+    if (!isAuthenticated) {
+      requestAnimationFrame(() => setMounted(true))
+      emailRef.current?.focus()
     }
+  }, [isAuthenticated])
+
+  // const refreshCaptcha = useCallback(() => {
+  //   setCaptcha(generateCaptcha())
+  //   setCaptchaInput('')
+  //   setCaptchaError(false)
+  // }, [])
+
+  // If already authenticated, redirect away from login
+  if (isAuthenticated) {
+    return <Navigate to={from} replace />
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoginError('')
+
+    // Captcha validation — only check when captcha input is enabled in the form
+    // if (captchaInput !== captcha.answer) {
+    //   setCaptchaError(true)
+    //   return
+    // }
 
     setIsLoading(true)
-    // Static login — just navigate after a brief delay
-    setTimeout(() => {
-      navigate('/intelligence')
-    }, 1200)
+    try {
+      await login(email, password)
+      navigate(from, { replace: true })
+    } catch (err) {
+      if (err instanceof ApiError) {
+        setLoginError(err.status === 401 ? 'Invalid email or password.' : err.message)
+      } else {
+        setLoginError('Something went wrong. Please try again.')
+      }
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -238,6 +254,13 @@ const Login = () => {
                 <p className="text-red-400 text-xs mt-1.5 animate-pulse">Incorrect answer. Try again.</p>
               )}
             </div> */}
+
+            {/* Login error */}
+            {loginError && (
+              <div className="mb-4 bg-red-500/10 border border-red-500/30 rounded-xl px-4 py-3 text-red-400 text-sm">
+                {loginError}
+              </div>
+            )}
 
             {/* Submit button */}
             <div

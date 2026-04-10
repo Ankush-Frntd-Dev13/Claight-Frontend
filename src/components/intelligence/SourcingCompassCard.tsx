@@ -1,54 +1,73 @@
-import { ExternalLink } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { useState } from "react";
+import { ExternalLink, Loader2 } from "lucide-react";
 
 const destinations = [
-  { name: 'Bangladesh', flag: '🇧🇩' },
-  { name: 'India', flag: '🇮🇳' },
-  { name: 'Pakistan', flag: '🇵🇰' },
-  { name: 'Turkey', flag: '🇹🇷' },
-]
+  { name: "Bangladesh", flag: "🇧🇩" },
+  { name: "India", flag: "🇮🇳" },
+  { name: "Pakistan", flag: "🇵🇰" },
+  { name: "Turkey", flag: "🇹🇷" },
+];
 
 const origins = [
   {
-    name: 'Indonesia',
-    flag: '🇮🇩',
+    name: "Indonesia",
+    flag: "🇮🇩",
     values: [
-      { text: '25.0%', color: '#b8860b' },
-      { text: '0.3%', color: '#10b981' },
-      { text: '32.4 USD', color: '#b8860b' },
-      { text: '31.2%', color: '#b8860b' },
+      { text: "25.0%", color: "#b8860b" },
+      { text: "0.3%", color: "#10b981" },
+      { text: "32.4 USD", color: "#b8860b" },
+      { text: "31.2%", color: "#b8860b" },
     ],
   },
   {
-    name: 'Malaysia',
-    flag: '🇲🇾',
+    name: "Malaysia",
+    flag: "🇲🇾",
     values: [
-      { text: '25.0%', color: '#b8860b' },
-      { text: '0.3%', color: '#10b981' },
-      { text: '32.4 USD', color: '#b8860b' },
-      { text: '21.8%', color: '#b8860b' },
+      { text: "25.0%", color: "#b8860b" },
+      { text: "0.3%", color: "#10b981" },
+      { text: "32.4 USD", color: "#b8860b" },
+      { text: "21.8%", color: "#b8860b" },
     ],
   },
   {
-    name: 'Singapore',
-    flag: '🇸🇬',
+    name: "Singapore",
+    flag: "🇸🇬",
     values: [
-      { text: '25.0%', color: '#b8860b' },
-      { text: '0.3%', color: '#10b981' },
-      { text: '32.4 USD', color: '#b8860b' },
-      { text: '31.2%', color: '#b8860b' },
+      { text: "25.0%", color: "#b8860b" },
+      { text: "0.3%", color: "#10b981" },
+      { text: "32.4 USD", color: "#b8860b" },
+      { text: "31.2%", color: "#b8860b" },
     ],
   },
-]
+];
 
 const SourcingCompassCard = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleOpen = () => {
+    // Open new blank tab immediately
+    const newTab = window.open("about:blank", "_blank");
+    setIsLoading(true);
+    // Redirect the tab to the URL after 2 seconds
+    setTimeout(() => {
+      if (newTab) {
+        newTab.location.href =
+          "https://sourcingcompass.procurementresource.com/login?utam_cli=$2a$15$BkVVmRsU4w2da3yVLBERG.HuBS.gsQy5DWaL5YFaH1mh9Phtl4GaC";
+      }
+      setIsLoading(false);
+    }, 2000);
+  };
+
   return (
     <article className="bg-card rounded-2xl p-5 shadow-sm border border-border flex flex-col h-full">
       {/* Header */}
       <div className="mb-4">
-        <h2 className="font-body text-lg font-semibold text-text-primary">Sourcing Compass</h2>
+        <h2 className="font-body text-lg font-semibold text-text-primary">
+          Sourcing Compass
+        </h2>
         <p className="text-xs text-text-muted mt-0.5 max-w-xs leading-relaxed">
-          Instantly compare tariffs across all origin & destination country combinations.
+          Instantly compare tariffs across all origin & destination country
+          combinations.
         </p>
       </div>
 
@@ -62,7 +81,10 @@ const SourcingCompassCard = () => {
                 Tariff %
               </th>
               {destinations.map((dest) => (
-                <th key={dest.name} className="py-2 px-3 font-semibold whitespace-nowrap last:rounded-tr-lg">
+                <th
+                  key={dest.name}
+                  className="py-2 px-3 font-semibold whitespace-nowrap last:rounded-tr-lg"
+                >
                   <span className="flex items-center justify-center gap-1.5">
                     <span>{dest.name}</span>
                     <span>{dest.flag}</span>
@@ -77,22 +99,30 @@ const SourcingCompassCard = () => {
             {origins.map((origin, i) => (
               <tr
                 key={origin.name}
-                className={i % 2 === 0 ? 'bg-primary-50/40' : 'bg-white'}
+                className={i % 2 === 0 ? "bg-primary-50/40" : "bg-white"}
               >
                 <td className="py-2.5 px-3 whitespace-nowrap">
                   <span className="flex items-center gap-2">
                     <span className="text-base">{origin.flag}</span>
-                    <span className="font-medium text-text-primary">{origin.name}</span>
+                    <span className="font-medium text-text-primary">
+                      {origin.name}
+                    </span>
                   </span>
                 </td>
                 {origin.values.map((val, j) => (
-                  <td key={j} className="py-2.5 px-3 text-center whitespace-nowrap">
+                  <td
+                    key={j}
+                    className="py-2.5 px-3 text-center whitespace-nowrap"
+                  >
                     <span className="flex items-center justify-center gap-1.5">
                       <span
                         className="w-1.5 h-1.5 rounded-full shrink-0"
                         style={{ backgroundColor: val.color }}
                       />
-                      <span className="font-semibold" style={{ color: val.color }}>
+                      <span
+                        className="font-semibold"
+                        style={{ color: val.color }}
+                      >
                         {val.text}
                       </span>
                     </span>
@@ -106,12 +136,25 @@ const SourcingCompassCard = () => {
 
       {/* Redirect link */}
       <div className="mt-4 pt-3 border-t border-border">
-        <Link to="/sourcing-compass" className="flex items-center gap-1 text-xs font-semibold text-primary-500 hover:text-primary-700 transition-colors">
-          Open Sourcing Compass <ExternalLink size={12} />
-        </Link>
+        <button
+          onClick={handleOpen}
+          disabled={isLoading}
+          className="flex items-center gap-1 text-xs font-semibold text-primary-500 hover:text-primary-700 transition-colors disabled:opacity-60 cursor-pointer"
+        >
+          {isLoading ? (
+            <>
+              <Loader2 size={12} className="animate-spin" />
+              Opening...
+            </>
+          ) : (
+            <>
+              Open Sourcing Compass <ExternalLink size={12} />
+            </>
+          )}
+        </button>
       </div>
     </article>
-  )
-}
+  );
+};
 
-export default SourcingCompassCard
+export default SourcingCompassCard;

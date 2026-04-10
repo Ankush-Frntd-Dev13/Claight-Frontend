@@ -37,7 +37,7 @@ const mainNavItems: NavItem[] = [
   { id: 'cost-models', label: 'Digital Cost Model', path: '/intelligence', icon: <BarChart3 size={18} />, iconColor: 'text-teal-500', cardId: 'card-cost-models' },
   { id: 'sourcing-compass', label: 'Sourcing Compass', path: '/intelligence', icon: <Compass size={18} />, iconColor: 'text-amber-500', cardId: 'card-sourcing-compass' },
   { id: 'price-database', label: 'Price Database', path: '/intelligence', icon: <Database size={18} />, iconColor: 'text-indigo-500', cardId: 'card-price-database' },
-  { id: 'inflation-forecasting', label: 'FNF Intelligence', path: '/intelligence', icon: <TrendingUp size={18} />, iconColor: 'text-orange-500', cardId: 'card-inflation-forecasting' },
+  { id: 'inflation-forecasting', label: 'Commodity Intelligence', path: '/intelligence', icon: <TrendingUp size={18} />, iconColor: 'text-orange-500', cardId: 'card-inflation-forecasting' },
   { id: 'sustainability-tracker', label: 'Sustainability Tracker', path: '/intelligence', icon: <Leaf size={18} />, iconColor: 'text-emerald-500', cardId: 'card-sustainability-tracker' },
 ]
 

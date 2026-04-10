@@ -29,3 +29,39 @@ a {
 ul, ol {
   list-style: none;
 }
+
+// Custom scrollbar for horizontal scroll containers (mobile/tablet only)
+.custom-scrollbar {
+  @media (max-width: 1024px) {
+    scrollbar-width: thin;
+    scrollbar-color: #9ca3af #e5e7eb;
+
+    &::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #e5e7eb;
+      border-radius: 999px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #9ca3af;
+      border-radius: 999px;
+
+      &:hover {
+        background: #6b7280;
+      }
+    }
+  }
+
+  @media (min-width: 1025px) {
+    overflow-x: visible;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    scrollbar-width: none;
+  }
+}

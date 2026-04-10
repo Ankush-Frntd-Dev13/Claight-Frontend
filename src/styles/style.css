@@ -1,53 +1,20 @@
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 html {
   scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;
 }
 
 body {
   font-family: "Inter", system-ui, -apple-system, sans-serif;
-  font-weight: 400;
-  font-size: clamp(0.8125rem, 0.7rem + 0.35vw, 1rem);
-  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Lora", Georgia, serif;
+:where(h1, h2, h3, h4, h5, h6) {
   font-weight: 600;
-  line-height: 1.3;
 }
 
 a {
   text-decoration: none;
   color: inherit;
-}
-
-img, svg {
-  display: block;
-  max-width: 100%;
-}
-
-button {
-  cursor: pointer;
-  border: none;
-  outline: none;
-  background: none;
-  font-family: inherit;
-}
-
-input, textarea, select {
-  font-family: inherit;
-  font-size: inherit;
-  outline: none;
 }
 
 ul, ol {

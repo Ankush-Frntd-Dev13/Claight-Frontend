@@ -63,7 +63,7 @@ const SustainabilityTrackerCard = () => {
         <h2 className="font-body text-lg font-semibold text-text-primary">
           Sustainability Tracker
         </h2>
-        <p className="text-xs text-text-muted mt-0.5 w-full leading-relaxed">
+        <p className="text-sm text-text-muted mt-0.5 w-full leading-relaxed">
           Intelligent Journeys,The Modern Explorer & Experience With Intelligent
           AI
         </p>

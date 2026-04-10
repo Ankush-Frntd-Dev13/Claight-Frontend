@@ -6,7 +6,7 @@ const Procure360Card = () => {
       {/* Header */}
       <div className="mb-2">
         <h2 className="font-body text-lg font-semibold text-text-primary">Procure 360</h2>
-        <p className="text-xs text-text-muted mt-0.5 w-full leading-relaxed">
+        <p className="text-sm text-text-muted mt-0.5 w-full leading-relaxed">
           Leverages global trade data across 100+ countries to benchmark suppliers, identify sourcing opportunities, and optimize supply chain strategies.
         </p>
       </div>

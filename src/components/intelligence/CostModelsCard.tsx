@@ -41,7 +41,7 @@ const CostModelsCard = () => {
       {/* Header */}
       <div className="mb-4">
         <h2 className="font-body text-lg font-semibold text-text-primary">Digital Cost Model</h2>
-        <p className="text-xs text-text-muted mt-0.5 leading-relaxed w-full">
+        <p className="text-sm text-text-muted mt-0.5 leading-relaxed w-full">
           An Always-on tool delivering precise cost breakdowns of raw materials, labor, utilities, and overheads to drive data-led supplier negotiations and cost benchmarking.
         </p>
       </div>

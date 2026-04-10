@@ -68,7 +68,7 @@ const PriceDatabaseCard = () => {
       {/* Header */}
       <div className="mb-4">
         <h2 className="font-body text-lg font-semibold text-text-primary">Price Database</h2>
-        <p className="text-xs text-text-muted mt-0.5 w-full leading-relaxed">
+        <p className="text-sm text-text-muted mt-0.5 w-full leading-relaxed">
           A centralized repository of structured price data across markets, time periods, and geographies, enabling analysis, benchmarking, and trend insights.
         </p>
       </div>

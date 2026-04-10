@@ -64,10 +64,10 @@ const InflationForecastingCard = () => {
       {/* Top label + title */}
       <div className="mb-3">
         <p className="text-[10px] font-semibold tracking-widest text-primary-500 uppercase mb-1">
-          F&F Intelligence · Market Overview
+          Commodity Intelligence · Market Overview
         </p>
         <h2 className="font-body text-lg font-semibold text-text-primary">
-          FNF Intelligence
+          Commodity Intelligence
         </h2>
       </div>
 
@@ -125,7 +125,7 @@ const InflationForecastingCard = () => {
             </>
           ) : (
             <>
-              Open FNF Intelligence <ExternalLink size={12} />
+              Open Commodity Intelligence <ExternalLink size={12} />
             </>
           )}
         </button>

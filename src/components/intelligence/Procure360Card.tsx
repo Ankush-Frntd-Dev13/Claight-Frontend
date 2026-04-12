@@ -1,8 +1,27 @@
+import { useState } from 'react'
+import { ExternalLink, Loader2 } from 'lucide-react'
 import WorldMap from './WorldMap'
 
 const Procure360Card = () => {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleOpen = () => {
+    const newTab = window.open('about:blank', '_blank')
+    setIsLoading(true)
+    setTimeout(() => {
+      if (newTab) {
+        newTab.location.href =
+          'https://Procure360.procurementresource.com/'
+      }
+      setIsLoading(false)
+    }, 2000)
+  }
+
   return (
-    <article className="bg-card rounded-2xl p-5 shadow-sm border border-border flex flex-col h-full">
+    <article
+      onClick={handleOpen}
+      className="bg-card rounded-2xl p-5 shadow-sm border border-border flex flex-col h-full cursor-pointer hover:shadow-md hover:border-primary-200 transition-all duration-200"
+    >
       {/* Header */}
       <div className="mb-2">
         <h2 className="font-body text-lg font-semibold text-text-primary">Procure 360</h2>
@@ -18,8 +37,17 @@ const Procure360Card = () => {
 
       {/* Footer */}
       <div className="mt-4 pt-3 border-t border-border">
-        <span className="flex items-center gap-1 text-xs font-semibold text-text-muted">
-          Open Procure 360
+        <span className="flex items-center gap-1 text-xs font-semibold text-primary-500">
+          {isLoading ? (
+            <>
+              <Loader2 size={12} className="animate-spin" />
+              Opening...
+            </>
+          ) : (
+            <>
+              Open Procure 360 <ExternalLink size={12} />
+            </>
+          )}
         </span>
       </div>
     </article>

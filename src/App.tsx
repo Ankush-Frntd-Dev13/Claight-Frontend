@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
+import ScrollToTop from './components/ScrollToTop'
 import Intelligence from './pages/Intelligence'
 import Procurement from './pages/Procurement'
 import MarketTrend from './pages/MarketTrend'
@@ -59,6 +60,8 @@ const AppLayout = () => {
 
           <footer role="contentinfo" />
         </div>
+
+        <ScrollToTop />
       </div>
     </ProtectedRoute>
   )

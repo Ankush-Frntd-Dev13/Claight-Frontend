@@ -70,6 +70,8 @@ const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
       }
     } else {
       navigate(item.path)
+      // Scroll to top when navigating to a page (e.g., Dashboard)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     }
     setMobileOpen(false)
   }

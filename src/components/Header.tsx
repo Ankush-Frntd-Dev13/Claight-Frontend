@@ -3,7 +3,11 @@ import { LogOut, Mail } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 
-const Header = () => {
+interface HeaderProps {
+  sidebarCollapsed?: boolean
+}
+
+const Header = ({ sidebarCollapsed = false }: HeaderProps) => {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
   const [showMenu, setShowMenu] = useState(false)
@@ -24,9 +28,16 @@ const Header = () => {
       role="banner"
       className="sticky top-0 z-40 flex items-center justify-between h-16 px-4 md:px-6 bg-white border-b border-border"
     >
-      {/* Left - spacer for mobile hamburger */}
+      {/* Left - spacer for mobile hamburger + logo (mobile always, desktop when collapsed) */}
       <div className="flex items-center gap-3">
         <div className="w-10 md:hidden" />
+        <img
+          src="https://adminportal-new.procurementresource.com/pr-logo.webp"
+          alt="Precision Intel"
+          className={`object-contain max-[360px]:w-32 max-[360px]:h-9 w-46 h-12 sm:w-46 sm:h-12 md:w-46 md:h-12 ${
+            sidebarCollapsed ? 'block' : 'md:hidden'
+          }`}
+        />
       </div>
 
       {/* Right - User actions */}

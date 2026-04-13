@@ -37,7 +37,7 @@ const AppLayout = () => {
             sidebarCollapsed ? 'md:ml-20' : 'md:ml-65'
           }`}
         >
-          <Header />
+          <Header sidebarCollapsed={sidebarCollapsed} />
 
           <main role="main" className="flex-1 p-4 md:p-6">
             <Routes>

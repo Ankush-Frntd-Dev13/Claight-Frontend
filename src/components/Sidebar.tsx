@@ -87,64 +87,88 @@ const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
     }, 2000)
   }
 
-  const NavButton = ({ item }: { item: NavItem }) => (
-    <button
-      onClick={() => handleClick(item)}
-      title={collapsed ? item.label : undefined}
-      className={`flex items-center gap-3 px-3 py-2.5 rounded-md cursor-pointer transition-all duration-150 whitespace-nowrap font-body text-sm font-medium border-l-[3px] ${
-        isActive(item)
-          ? 'bg-primary-50 text-primary-500 border-l-primary-500'
-          : cardIds.has(item.id)
-            ? 'text-text-secondary border-l-transparent hover:bg-primary-50/50 hover:text-primary-500'
-            : 'text-text-secondary border-l-transparent hover:bg-[#f8f7fa] hover:text-text-primary'
-      }`}
-    >
-      <span className={`min-w-5 ${isActive(item) ? 'text-primary-500' : item.iconColor}`}>
-        {item.icon}
-      </span>
-      <span className={`flex-1 text-left transition-opacity duration-250 ${collapsed && !mobileOpen ? 'opacity-0 w-0 overflow-hidden' : ''}`}>
-        {item.label}
-      </span>
-      {item.hasChevron && (
-        <ChevronRight
-          size={14}
-          className={`text-text-muted transition-opacity duration-250 ${collapsed && !mobileOpen ? 'opacity-0 w-0' : ''}`}
-        />
-      )}
-    </button>
-  )
+  const NavButton = ({ item }: { item: NavItem }) => {
+    const isCollapsed = collapsed && !mobileOpen
+    return (
+      <button
+        onClick={() => handleClick(item)}
+        title={collapsed ? item.label : undefined}
+        className={`flex items-center cursor-pointer transition-all duration-150 whitespace-nowrap font-body text-sm font-medium ${
+          isCollapsed
+            ? `justify-center w-11 h-11 mx-auto rounded-xl ${
+                isActive(item)
+                  ? 'bg-primary-50 text-primary-500 shadow-sm ring-1 ring-primary-100'
+                  : cardIds.has(item.id)
+                    ? 'text-text-secondary hover:bg-primary-50/60 hover:text-primary-500'
+                    : 'text-text-secondary hover:bg-[#f8f7fa] hover:text-text-primary'
+              }`
+            : `gap-3 px-3 py-2.5 rounded-md border-l-[3px] ${
+                isActive(item)
+                  ? 'bg-primary-50 text-primary-500 border-l-primary-500'
+                  : cardIds.has(item.id)
+                    ? 'text-text-secondary border-l-transparent hover:bg-primary-50/50 hover:text-primary-500'
+                    : 'text-text-secondary border-l-transparent hover:bg-[#f8f7fa] hover:text-text-primary'
+              }`
+        }`}
+      >
+        <span className={`min-w-5 flex items-center justify-center ${isActive(item) ? 'text-primary-500' : item.iconColor}`}>
+          {item.icon}
+        </span>
+        {!isCollapsed && (
+          <>
+            <span className="flex-1 text-left">{item.label}</span>
+            {item.hasChevron && (
+              <ChevronRight size={14} className="text-text-muted" />
+            )}
+          </>
+        )}
+      </button>
+    )
+  }
 
   const sidebarContent = (
     <>
-      {/* Logo */}
-      <div className={`flex items-center justify-center pt-6 pb-5 ${collapsed && !mobileOpen ? 'px-3' : 'px-5'}`}>
-        <img
-          src="https://adminportal-new.procurementresource.com/pr-logo.webp"
-          alt="Precision Intel"
-          className={`object-contain transition-all duration-250 ${collapsed && !mobileOpen ? 'w-12 h-12' : 'w-52 h-14'}`}
-        />
-      </div>
+      {/* Logo - hidden on desktop when collapsed (shown in Header instead) */}
+      {(!collapsed || mobileOpen) ? (
+        <div className="flex items-center justify-center pt-6 pb-5 px-5">
+          <img
+            src="https://adminportal-new.procurementresource.com/pr-logo.webp"
+            alt="Precision Intel"
+            className="object-contain transition-all duration-250 w-52 h-14"
+          />
+        </div>
+      ) : (
+        <div className="h-16 border-b border-sidebar-border" />
+      )}
 
       {/* Main navigation */}
-      <nav className="flex-1 px-3 py-2 flex flex-col gap-0.5 overflow-y-auto">
+      <nav
+        className={`flex-1 flex flex-col overflow-y-auto ${
+          collapsed && !mobileOpen ? 'px-2 py-4 gap-1.5' : 'px-3 py-2 gap-0.5'
+        }`}
+      >
         {mainNavItems.map((item) => (
           <NavButton key={item.id} item={item} />
         ))}
       </nav>
 
       {/* Bottom - Logout */}
-      <div className="px-3 py-3 flex flex-col gap-0.5 border-t border-sidebar-border">
+      <div className={`border-t border-sidebar-border ${collapsed && !mobileOpen ? 'px-2 py-4' : 'px-3 py-3'}`}>
         <button
           onClick={handleLogout}
           title={collapsed && !mobileOpen ? 'Logout' : undefined}
-          className="flex items-center gap-3 px-3 py-2.5 rounded-md cursor-pointer transition-all duration-150 whitespace-nowrap font-body text-sm font-medium border-l-[3px] border-l-transparent text-red-500 hover:bg-red-50 hover:text-red-600"
+          className={`flex items-center cursor-pointer transition-all duration-150 whitespace-nowrap font-body text-sm font-medium text-red-500 hover:text-red-600 ${
+            collapsed && !mobileOpen
+              ? 'justify-center w-11 h-11 mx-auto rounded-xl hover:bg-red-50'
+              : 'gap-3 px-3 py-2.5 rounded-md border-l-[3px] border-l-transparent hover:bg-red-50'
+          }`}
         >
-          <span className="min-w-5 text-red-400">
+          <span className="min-w-5 flex items-center justify-center text-red-400">
             <LogOut size={18} />
           </span>
-          <span className={`flex-1 text-left transition-opacity duration-250 ${collapsed && !mobileOpen ? 'opacity-0 w-0 overflow-hidden' : ''}`}>
-            Logout
-          </span>
+          {(!collapsed || mobileOpen) && (
+            <span className="flex-1 text-left">Logout</span>
+          )}
         </button>
       </div>
     </>

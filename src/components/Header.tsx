@@ -17,6 +17,8 @@ const Header = () => {
     navigate('/login', { replace: true })
   }
 
+  console.log(user, 'jvv');
+  
   return (
     <header
       role="banner"
@@ -53,7 +55,7 @@ const Header = () => {
             <div className="fixed inset-0 z-40" onClick={() => setShowMenu(false)} />
             <div className="absolute right-0 top-12 z-50 w-56 bg-white rounded-xl border border-border shadow-lg py-2">
               <div className="px-4 py-2 border-b border-border">
-                <p className="text-sm font-medium text-text-primary truncate">{user?.name || 'User'}</p>
+                <p className="text-sm font-medium text-text-primary truncate">{user?.last_name ? `${user?.first_name || ''} ${user.last_name}`.trim() : 'User'}</p>
                 <p className="text-xs text-text-muted truncate">{user?.email}</p>
               </div>
               <button

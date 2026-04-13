@@ -3,9 +3,12 @@ import type { ReactNode } from 'react'
 import { api, ApiError } from '../api/client'
 
 interface User {
-  id: string
-  email: string
-  name: string
+  id?: string
+  email?: string
+  name?: string
+  first_name?: string
+  last_name?: string
+  [key: string]: unknown
 }
 
 interface AuthContextType {

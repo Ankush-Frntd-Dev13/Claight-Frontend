@@ -188,7 +188,7 @@ const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
       <button
         onClick={onToggle}
         aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-        className={`fixed top-7 z-51 w-6 h-6 bg-white border border-border rounded-full hidden md:flex items-center justify-center cursor-pointer shadow-sm hover:bg-primary-50 hover:border-primary-500 group transition-all duration-250 ${
+        className={`fixed top-[21px] z-51 w-6 h-6 bg-white border border-border rounded-full hidden md:flex items-center justify-center cursor-pointer shadow-sm hover:bg-primary-50 hover:border-primary-500 group transition-all duration-250 ${
           collapsed ? 'left-17' : 'left-62'
         }`}
       >

@@ -53,7 +53,8 @@ const InflationForecastingCard = () => {
     setTimeout(() => {
       if (newTab) {
         newTab.location.href =
-          "https://fnf-intelligence.procurementresource.com/login?utam_cli=$2a$15$BkVVmRsU4w2da3yVLBERG.HuBS.gsQy5DWaL5YFaH1mh9Phtl4GaC";
+          // "https://fnf-intelligence.procurementresource.com/login?utam_cli=$2a$15$BkVVmRsU4w2da3yVLBERG.HuBS.gsQy5DWaL5YFaH1mh9Phtl4GaC";
+          "https://fnf-intelligence.procurementresource.com/login ";
       }
       setIsLoading(false);
     }, 2000);
